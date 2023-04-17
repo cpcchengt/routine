@@ -3,7 +3,7 @@ use std::sync::Arc;
 use teloxide::{
     dispatching::dialogue::InMemStorage,
     prelude::*,
-    types::{InlineKeyboardButton, InlineKeyboardMarkup, ReplyMarkup},
+    types::{InlineKeyboardButton, InlineKeyboardMarkup, ReplyMarkup, BotCommand},
 };
 
 #[derive(Debug, Clone)]
@@ -19,6 +19,11 @@ pub struct Statey {
 async fn main() {
     dotenv().ok();
     let bot = Bot::from_env();
+
+    bot.set_my_commands(vec![BotCommand{
+        command: "xxxxxxxxxx".to_string(),
+        description: "xxx".to_string()
+    }]).await.unwrap();
 
     let handler = dptree::entry()
         .branch(Update::filter_message().endpoint(answer))
